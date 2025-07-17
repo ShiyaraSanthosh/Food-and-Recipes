@@ -1,20 +1,19 @@
 import React from 'react';
 
 const SpecialDishes = (props) => {
+
     let maxImg = 8;
-    let specialMen = props.specialmenu.map((menuItem,index) => {
+    const specialMen = props.specialmenu.map((menuItem,index) => {
         if(index < maxImg){
             return(
             <li className='mt-[40px] '>
-               
                 <img className = 'max-w-[80%] rounded overflow-hidden shadow-lg'src= {menuItem.strMealThumb} />
                  <h1 className=' text-[18px]'>{menuItem.strMeal}</h1>
-                
             </li>
         )
-
         }
     });
+
     return (
         <div>
             <h1 className='m-auto max-w-[200px] text-[20px] font-extrabold text-shadow-lg/30 mt-[50px]'>Our Special Dishes</h1>

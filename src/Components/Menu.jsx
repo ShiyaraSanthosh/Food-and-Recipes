@@ -1,23 +1,34 @@
 import React, { useEffect,useState } from 'react';
 import Hero from './Hero';
 import SpecialDishes from './SpecialDishes';
+import FilterData from './FilterData';
 
 const Menu = () => {
 
     let [Menus , SetMenu] = useState([])
+    let [Category , SetCategory] = useState([])
+    let [loading , Setloading] = useState(true)
 
     async function getAllTheMenu() {
         const UPI_URL = "https://www.themealdb.com/api/json/v1/1/search.php?f=c"
         let response = await fetch(UPI_URL)
         let data = await response.json()
        SetMenu(data.meals)
+       Setloading(false)
+    }
+    async function getAllTheCategory() {
+        const UPI_URL = "https://www.themealdb.com/api/json/v1/1/categories.php"
+        let response = await fetch(UPI_URL)
+        let catergoriesData = await response.json()
+       SetCategory(catergoriesData.categories)
     }
     useEffect(() => {
         getAllTheMenu()
+        getAllTheCategory()
 
       
     }, []);
-    console.log("menus are",Menus)
+    console.log("menus are",Category)
     
     // let menuImages = Menus.map((item) => {
     //     console.log(item.strMealThumb)
@@ -33,9 +44,11 @@ const Menu = () => {
     return (
         <div>
           <Hero />
-          <SpecialDishes specialmenu = {Menus} />
+          {!loading ? <SpecialDishes specialmenu = {Menus} /> : <h1 className='text-[30px] text-center'>loading..</h1>}
+          {!loading ? <FilterData categoriesItem = {Category} allmenu = {Menus} /> : null}
+          
         </div>
-    );
+    ); 
 }
 
 export default Menu;
