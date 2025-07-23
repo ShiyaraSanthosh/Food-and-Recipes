@@ -4,9 +4,7 @@ import Menu from './Components/Menu';
 
 const App = () => {
   return (
-    <>
       <Menu/>
-    </>
   );
 }
 
